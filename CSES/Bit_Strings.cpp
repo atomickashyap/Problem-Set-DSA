@@ -1,9 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define loop(i,n)   for (int i=0;i<n;i++)
-#define loop1(i,n)   for (int i=1;i<=n;i++)
-#define loopr(i,n)   for (int i=n;i>0;i--)
-#define loops(i, a, n)   for (int i=a;i<=n;i++)
+#define loop(i,n)   for (long long i=0;i<n;i++)
+#define loop1(i,n)   for (long long i=1;i<=n;i++)
+#define loopr(i,n)   for (long long i=n;i>0;i--)
+#define loops(i, a, n)   for (long long i=a;i<=n;i++)
 #define el cout<<"\n";
 int begtime = clock();
 #define end_routine() cout << "\n\nTime elapsed: " << (clock() - begtime)*1000/CLOCKS_PER_SEC << " ms\n\n";
@@ -89,63 +89,10 @@ int main() {
     fast_io;
     init_code();
 
-    int n;
+    ll n ;
     cin >> n;
-    vi v(n + 1);
-    v[0] = 0;
-    int sum = 0;
-    loops(i, 1, n)
-    {
-        v[i] = i;
-        sum += i;
-    }
-    string ans = "";
-    vi v1, v2;
-    if (!(sum & 1))
-    {
-        ans = "YES";
-        if (n % 4 == 0)
-        {
-            for (int i = 1; i <= n / 4; i++)
-                v1.pb(i);
-            for (int i = 0; i < n / 4; i++)
-                v1.pb(v[n - i]);
-            for (int i = n / 4 + 1; i < v1[v1.size() - 1]; i++)
-                v2.pb(i);
-        }
-        else if (n % 4 == 3)
-        {
-            vi t;
-            for (int i = 4; i < n + 1; i++)
-                t.pb(i);
-            v1.pb(1); v1.pb(2);
-            v2.pb(3);
-            for (int i = 0; i < (n - 3) / 4; i++)
-            {
-                v1.pb(t[i]);
-                v1.pb(t[t.size() - 1 - i]);
-            }
-            for (int i = 4 + (n - 3) / 4; i <= n - (n - 3) / 4; i++)
-                v2.pb(i);
-        }
-        else {ans = "NO";}
-    }
-    else {ans = "NO";}
+    cout << powerLL(2, n, MOD);
 
-    if (ans == "YES")
-    {
-        cout << ans; el;
-        cout << v1.size(); el;
-        for (auto it : v1)
-            cout << it << " ";
-        el;
-        cout << v2.size(); el;
-        for (auto it : v2)
-            cout << it << " ";
-        el;
-    }
-    else
-        cout << ans;
+
     return 0;
 }
-
