@@ -9,17 +9,21 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        ListNode *slow_ptr = head;
-        ListNode *fast_ptr = head;
-        while(fast_ptr !=  NULL && fast_ptr->next!=NULL) 
+        ListNode * slow = head;// slow pointer
+        ListNode * fast = head;// fast pointer
+        
+        while(fast!=NULL and fast->next!=NULL) //if we did not find any loop it terminates
         {
-            slow_ptr = slow_ptr->next;
-            fast_ptr = fast_ptr->next->next;
-            if(slow_ptr == fast_ptr)
+            slow = slow ->next; // increament by 1
+            fast = fast->next->next;// increment by 2
+            
+            if(slow == fast) // that is both the point meet 
             {
                 return true;
             }
         }
-        return false;
+        
+        
+        return false; //didnot detect any loop
     }
 };
