@@ -1,6 +1,6 @@
-void rotate_arr(int *arr,int left,int right)
+void reverse(int * arr, int left ,int right)
 {
-    while(left<right)
+    while(left < right)
     {
         arr[left] = arr[left] ^ arr[right];
         arr[right] = arr[left] ^ arr[right];
@@ -10,9 +10,11 @@ void rotate_arr(int *arr,int left,int right)
     }
 }
 
-void rotate(int *nums, int numsSize, int k){
-     k = k % numsSize;
-    rotate_arr(nums,0,numsSize-k-1);
-    rotate_arr(nums,numsSize-k,numsSize-1);
-    rotate_arr(nums,0,numsSize-1);
+void rotate(int* nums, int numsSize, int k){
+    k = k%numsSize;
+    int start  = 0; // starting index
+    int end = numsSize -1; // end index
+    reverse(nums, start, end-k);
+    reverse(nums,end-k+1, end);
+    reverse (nums,start,end);
 }
