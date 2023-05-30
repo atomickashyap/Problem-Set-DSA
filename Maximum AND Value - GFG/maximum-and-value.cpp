@@ -10,35 +10,40 @@ using namespace std;
 class Solution
 {
     private:
-    int check(int pattern, int arr[],int size)
+    int function( int pattern, int *arr, int size)
     {
-        int counter = 0;
-        for (int i = 0; i < size; i++)
+        int cnt = 0;
+        for(int i=0;i<size;i++)
         {
-            if (pattern == (pattern & arr[i]))
-                counter++;
-        }
-        return counter;
-    }
-    int function(int arr[],int size)
-    {
-        int res = 0, counter;
-        for (int bits = 16; bits >= 0; bits--)
-        {
-            counter = check( res | (1 << bits) , arr, size);
-            if (counter >= 2)
+            if(pattern == (pattern&arr[i]))
             {
-                res = res | (1 << bits);
+                cnt++;
             }
         }
-        return res;
+        return cnt;
     }
     public:
     // Function for finding maximum AND value.
     int maxAND (int arr[], int N)
     {
         // Your code here
-        return function(arr,N);
+        int pattern;//making pattern
+        int res = 0; // hold our ans;
+        int counter;// counter the number of value which with equal to our pattern
+        
+        for(int bits = 16;bits>=0;bits--)
+        {
+            pattern = res | (1<<bits);
+            counter = function(pattern, arr, N);
+            if(counter >1)
+            {
+                res = pattern;
+            }
+        }
+        
+        
+        return res;
+        
     }
 };
 
