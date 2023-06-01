@@ -11,23 +11,22 @@
  */
 class Solution {
 private:
-    void right(TreeNode* root,int level, vector<int> &ans)
+    void function(TreeNode* root, int level, vector<int> &ans)
     {
-        if(root == NULL)
+        if(root==NULL)
             return;
         if(level == ans.size())
-        {
             ans.push_back(root->val);
-        }
         
-        right(root->right,level+1,ans);
-        right(root->left,level+1,ans);
-        
+        function(root->right,level+1,ans); //Right
+        function(root->left,level+1,ans);//Left
     }
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
-        right(root,0,ans);
+        int level = 0;
+        function(root,level,ans);
+        
         return ans;
     }
 };
