@@ -10,33 +10,38 @@
  * };
  */
 class Solution {
+private:
+    TreeNode* createTree(vector<int>& preorder,int prestart , int preendd,vector<int>& inorder,  int instart, int inendd,map<int,int> &mp)
+    {
+        
+        //base condition
+        if(prestart > preendd || instart > inendd) return NULL;
+        
+        TreeNode*  root = new TreeNode(preorder[prestart]);
+        int elem = mp[root->val];
+        int nelem = elem - instart;
+        
+        root -> left = createTree(preorder, prestart + 1, prestart + nelem, inorder,
+        instart, elem - 1, mp);
+        root -> right = createTree(preorder, prestart + nelem + 1, preendd, inorder, 
+        elem + 1, inendd, mp);
+        
+        
+        return root;
+    }
 public:
-       TreeNode * constructTree(vector < int > & preorder, int preStart, int preEnd, vector 
-     < int > & inorder, int inStart, int inEnd, map < int, int > & mp) {
-      if (preStart > preEnd || inStart > inEnd) return NULL;
-
-      TreeNode * root = new TreeNode(preorder[preStart]);
-      int elem = mp[root -> val];
-      int nElem = elem - inStart;
-
-      root -> left = constructTree(preorder, preStart + 1, preStart + nElem, inorder,
-      inStart, elem - 1, mp);
-      root -> right = constructTree(preorder, preStart + nElem + 1, preEnd, inorder, 
-      elem + 1, inEnd, mp);
-
-      return root;
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        
+        int prestart = 0, preendd =  preorder.size()-1; // 0 based indexing
+        int instart = 0, inendd = inorder.size()-1;
+        
+        map<int,int> mp;
+        for(int i = instart; i<=inendd;i++)
+        {
+            mp[inorder[i]] = i; // key is element ->value is the index
+        }
+        
+        return createTree(preorder,prestart,preendd,inorder,instart,inendd,mp);
+        
     }
-
-    TreeNode * buildTree(vector < int > & preorder, vector < int > & inorder) {
-      int preStart = 0, preEnd = preorder.size() - 1;
-      int inStart = 0, inEnd = inorder.size() - 1;
-
-      map < int, int > mp;
-      for (int i = inStart; i <= inEnd; i++) {
-        mp[inorder[i]] = i;
-      }
-
-      return constructTree(preorder, preStart, preEnd, inorder, inStart, inEnd, mp);
-    }
-    
 };
