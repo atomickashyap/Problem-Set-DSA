@@ -11,20 +11,27 @@
  */
 class Solution {
 private:
-    void inorder(TreeNode* root, vector<int> & ans)
+    void preorder(TreeNode* root,vector<int> &ans)
     {
         if(root == NULL)
             return;
-        inorder(root->left,ans);
+        
+        preorder(root->left, ans);
         ans.push_back(root->val);
-        inorder(root->right,ans);
+        preorder(root->right,ans);
     }
 public:
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        vector<int > ans;
-        inorder(root1,ans);
-        inorder(root2,ans);
+        
+        vector<int> ans;
+        
+        preorder(root1,ans);
+        preorder(root2,ans);
+        
         sort(ans.begin(),ans.end());
+            
         return ans;
+        
+        
     }
 };
