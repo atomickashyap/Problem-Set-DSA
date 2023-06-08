@@ -10,25 +10,44 @@
  * };
  */
 class Solution {
-    TreeNode* first, *last, *prev;
-public:
-    void inorder(TreeNode* root){
-        if(root==NULL) return;
+TreeNode* FirstWrong = NULL;
+TreeNode* SecondWrong = NULL;
+TreeNode* preNode = NULL;
+
+private:
+    void inorder(TreeNode* root)
+    {
+        if(root == NULL) //base case
+            return;
+        
         inorder(root->left);
-        if(prev!=NULL && (root->val<prev->val)){
-            if(first==NULL){
-                first=prev;
-                last=root; 
+        
+        // we have to do some work
+        
+        if(preNode != NULL && (root->val < preNode->val ))
+        {
+            if(FirstWrong == NULL)
+            {
+                FirstWrong = preNode;
+                SecondWrong = root;
             }
-            else
-                last=root;
+            else // if the node are not adjacent
+                SecondWrong = root;
         }
-        prev=root;
+        
+        preNode = root;
+        
+        
+        // work done
         inorder(root->right);
+        
     }
+    
+public:
     void recoverTree(TreeNode* root) {
-        first=last=prev=NULL;
         inorder(root);
-        swap(first->val,last->val);
+        
+        swap(FirstWrong->val,SecondWrong->val);
+        
     }
 };
