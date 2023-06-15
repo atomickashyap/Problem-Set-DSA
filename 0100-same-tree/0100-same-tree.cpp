@@ -10,40 +10,17 @@
  * };
  */
 class Solution {
-    void inorder(TreeNode* root,vector<int> &vec)
-    {
-        if(root == NULL)
-        {
-            vec.push_back(-1);
-            return;
-        }
-        vec.push_back(root->val);
-        inorder(root->left,vec);
-        inorder(root->right,vec);
-    }
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        vector<int> inoP,inoQ;
-        inorder(p,inoP);
-        inorder(q,inoQ);
-        if(inoP.size() != inoQ.size())
-        
+        if(p == NULL && q == NULL)
+            return true;
+       if(p == NULL || q == NULL)
             return false;
-        for(auto it:inoP)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
-          for(auto it:inoQ)
-        {
-            cout<<it<<" ";
-        }
-        for(int i = 0;i<inoP.size();i++)
-        {
-            if(inoP[i] != inoQ[i])
-                return false;
-        }
+        if(p->val != q->val )
+            return false;
+        bool check1 = isSameTree(p->left,q->left);
+        bool check2 = isSameTree(p->right,q->right);
         
-        return true;
+        return check1&check2;
     }
 };
