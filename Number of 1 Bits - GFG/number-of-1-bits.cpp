@@ -7,7 +7,13 @@ class Solution {
   public:
     int setBits(int N) {
         // Write Your Code here
-         return __builtin_popcount(N);
+        int ans = 0, incre = 1;
+        while(N)
+        {
+            ans+=(N&1);
+            N>>=1;
+        }
+         return ans;
     }
 };
 
