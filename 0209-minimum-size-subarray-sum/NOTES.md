@@ -1,0 +1,1 @@
+This question similar to subset sum problem on gfg
