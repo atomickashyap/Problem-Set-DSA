@@ -13,33 +13,42 @@ public:
           // code here
             
             int sum = 0, maxi;
+            bool check = true;
             string ans,ref;
-            map<char,int> mp;
+            char start= w[0];
             for(int i = 0;i<n;i++)
             {
-                char temp =x[i];
-                mp[temp] = b[i];
+                if(x[i]==start)
+                {
+                    maxi = b[i];
+                    ans+=start;
+                    check = false;
+                    break;
+                }
             }
-            char start= w[0];
-            if(mp.find(start)!=mp.end())
+            if(check)
             {
-                maxi = mp[start];
-                ans+=start;
-            }
-            else{
                 maxi = start;
                 ans+=start;
             }
             
+            
             for(int i = 0;i<w.length();i++)
             {
+                check = true;
                 char k = w[i];
                 ref+=k;
-                if(mp.find(k)!= mp.end())
+                for(int j =0;j<n;j++)
                 {
-                    sum+=mp[k];
+                    if(x[j]==k)
+                    {
+                        sum+=b[j];
+                        check = false;
+                        break;
+                    }
                 }
-                if(mp.find(k)==mp.end())
+                
+                if(check)
                     sum+=k;
                     
                 if(maxi < sum)
