@@ -5,39 +5,39 @@ using namespace std;
 
 // } Driver Code Ends
 // function to find longest common subsequence
-
-static int dp[1001][1001];
-
+static int t[1003][1003];
 class Solution
 {
-    public:
-    
-    int test(int x, int y, string &s1, string &s2)
+    private:
+    int mem(int n,int m,string &s1,string &s2)
     {
-        if(x == 0 || y == 0)
+        if(n==0||m==0)
         {
             return 0;
         }
-        if(dp[x][y] != -1)
+        
+        if(t[n][m] !=-1)
         {
-            return dp[x][y];
+            return t[n][m];
         }
-        if(s1[x-1] == s2[y-1])
+        if(s1[n-1] == s2[m-1])
         {
-            return dp[x][y] = 1+test(x-1,y-1,s1,s2);
+            return t[n][m] = 1+mem(n-1,m-1,s1,s2);
         }
-        else
-        {
-            return dp[x][y] = max(test(x-1,y,s1,s2),test(x,y-1,s1,s2));
+        else{
+            return t[n][m] = max(mem(n-1,m,s1,s2),mem(n,m-1,s1,s2));
         }
     }
-    
+    public:
     //Function to find the length of longest common subsequence in two strings.
-    int lcs(int x, int y, string s1, string s2)
+    int lcs(int n, int m, string s1, string s2)
     {
-        memset(dp,-1,sizeof(dp));
-        int p = test(x,y,s1,s2);
-        return p;
+        // your code here
+        // vector<vector<int>> t(n+1,vector<int>(m+1,-1));
+        memset(t,-1,sizeof(t));
+        return mem(n,m,s1,s2);
+        // return t[n][m];
+        
     }
 };
 
