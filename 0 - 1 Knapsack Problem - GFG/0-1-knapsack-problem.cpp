@@ -5,47 +5,37 @@ using namespace std;
 
 // } Driver Code Ends
 
-int t[1002][1002];
+
 class Solution
-{   
+{
     private:
-    int recur(int W,int wt[],int val[],int n)
+    int mem(int W, int wt[], int val[], int n,vector<vector<int>>&t)
     {
-        for(int i = 0 ;i<n+1;i++)
+        for(int i =1;i<n+1;i++)
         {
-            for(int j = 0; j<W+1;j++)
+            for(int j =1;j<W+1;j++)
             {
-                if(i == 0|| j==0 )
+                if(wt[i-1]<=j)
                 {
-                    t[i][j] =0;
+                    t[i][j] =max(val[i-1]+ t[i-1][j-wt[i-1]], t[i-1][j]);
                 }
-            }
-        }
-        
-        for(int i = 1;i<n+1;i++)
-        {
-            for(int j = 1;j<W+1;j++)
-            {
-                if(wt[i-1] <= j)
+                else
                 {
-                    t[i][j] = max( val[i-1] + t[i-1][j-wt[i-1]]
-                        ,t[i-1][j] );
-                }
-                else{
                     t[i][j] = t[i-1][j];
                 }
+                
             }
         }
-        
-        
-        return t[n][W];
-        
     }
     public:
+    //Function to return max value that can be put in knapsack of capacity W.
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-        // memset(t,-1,sizeof(t));
-        return recur(W,wt,val,n);
+       // Your code here
+        vector<vector<int>> T(n+1,vector<int>(W+1,0));
+        mem(W,wt,val,n,T);
+        return T[n][W];
+       
     }
 };
 
