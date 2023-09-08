@@ -4,35 +4,32 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution{
-    int mod = 1e9+7;
+
 	public:
+	long long expo = 1e9+7;
 	int perfectSum(int arr[], int n, int sum)
 	{
         // Your code goes here
-        int t[n+1][sum+1];
-        for(int i = 0;i<n+1;i++)
+        vector<vector<int>>t(n+1,vector<int >(sum+1,0));
+        for(int i =0;i<n+1;i++)
         {
-            for(int j = 0;j<sum+1;j++)
-            {
-                if(i==0)
-                    t[i][j] = 0;
-                if(j == 0)
-                    t[i][j] = 1;
-            }
+            t[i][0] = 1;
         }
-        
-        for(int i = 1;i<n+1;i++)
+        for(int i =1;i<n+1;i++)
         {
-            for(int j = 0;j<sum+1;j++)
+            for(int j =0;j<sum+1;j++)
             {
-                if(arr[i-1] <=j)
-                    t[i][j] = (t[i-1][j -arr[i-1]]%mod + t[i-1][j]%mod)%mod;
-                else
-                    t[i][j] = (t[i-1][j])%mod;
+                if(arr[i-1]<=j)
+                {
+                    t[i][j] = t[i-1][j-arr[i-1]]%expo + t[i-1][j] %expo;
+                }
+                else{
+                    t[i][j] = t[i-1][j] %expo;
+                }
             }
+            
         }
-        
-        return t[n][sum]%mod;
+        return t[n][sum] % expo;
 	}
 	  
 };
