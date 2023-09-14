@@ -42,22 +42,18 @@ class Solution{
     int getMiddle(Node *head)
     {
         // Your code here
-        Node* dummy = head;
-        int cnt = 0;
-        while(dummy !=NULL)
-        {
-            dummy= dummy->next;
-            cnt++;
-        }
-        cnt = (cnt/2);
-        // cout<<cnt;
-        dummy = head;
-        while(cnt--)
-        {
-            dummy = dummy->next;
+        Node* fast = head;
+        Node* slow = head;
         
+        while(fast != NULL && fast->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        return dummy->data;
+        
+        return slow->data;
+        
+        
     }
     
 };
