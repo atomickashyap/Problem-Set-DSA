@@ -82,47 +82,31 @@ struct Node {
 };
 */
 //Function to merge two sorted linked list.
-Node* sortedMerge(Node* head1, Node* head2)  
+Node* sortedMerge(Node* l1, Node* l2)  
 {  
     // code here
-    Node* dummy = new Node(0);
-    Node* dummy_itr = dummy; 
-    while(head1!=NULL && head2!=NULL)
+    if(l1 == NULL)
     {
-        Node* temp;
-        if(head1->data < head2->data)
-        {
-            temp = new Node(head1->data);
-            dummy_itr->next = temp;
-            dummy_itr = dummy_itr->next;
-            head1 = head1->next;
-        }
-        else if(head1->data > head2->data)
-        {
-            temp = new Node(head2->data);
-            dummy_itr->next = temp;
-            dummy_itr = dummy_itr->next;
-            head2 = head2->next;
-        }
-        else{
-            temp = new Node(head1->data);
-            dummy_itr->next = temp;
-            dummy_itr = dummy_itr->next;
-            head1 = head1->next;
-        }
+        return l2;
     }
-    if(head1!=NULL)
+    if(l2 == NULL)
     {
-        dummy_itr->next = head1;
-        dummy_itr = dummy_itr->next;
-        head1= head1->next;
+        return l1;
     }
-    if(head2!=NULL)
-    {
-        dummy_itr->next = head2;
-        // dummy_itr = dummy_itr->next;
-        // head2 = head2->next;
-    }
-    return dummy->next;
     
+    if(l1->data > l2->data) swap(l1,l2);
+    Node* res = l1;
+    
+    while(l1!=NULL && l2!=NULL)
+    {
+        Node* temp = NULL;
+        while(l1!=NULL && l1->data <= l2->data)
+        {
+            temp = l1;
+            l1 = l1->next;
+        }
+        temp->next = l2;
+        swap(l1,l2);
+    }
+    return res;
 }  
