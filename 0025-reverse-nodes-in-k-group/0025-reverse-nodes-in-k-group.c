@@ -5,35 +5,57 @@
  *     struct ListNode *next;
  * };
  */
-struct ListNode* reverseKGroup(struct ListNode* head, int k){
-    if(head == NULL || k == 1)  return head;
+void reverse(struct ListNode* s, struct ListNode* e)
+{
+    struct ListNode* pre = NULL;
+    struct ListNode* curr = s;
+    struct ListNode* nxt = s->next;
     
-    struct ListNode* dummy = (struct ListNode*) malloc(sizeof(struct ListNode));
-    dummy->val = 0;
+    while(pre!=e)
+    {
+        curr->next = pre;
+        pre = curr;
+        curr = nxt;
+        if(nxt!=NULL)
+            nxt = nxt->next;
+    }
+}
+struct ListNode* reverseKGroup(struct ListNode* head, int k){
+    if(head == NULL || k ==1 || head->next == NULL)
+        return head;
+    
+    struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummy->val = -1;
     dummy->next = head;
     
-    struct ListNode* pre = dummy;
-    struct ListNode* curr = dummy;
-    struct ListNode*nxt = dummy;
-    int cnt = 0;
-    while(curr->next!=NULL)
+    struct ListNode* beforestart = dummy;
+    struct ListNode* end = head;
+    int i = 0;
+    while(end!=NULL)
     {
-        cnt++;
-        curr = curr->next;
-    }
-    while(cnt>=k)
-    {
-        curr = pre->next;
-        nxt = curr->next;
-        for(int i = 1;i<k;i++)
+        i++;
+        if(i%k==0)
         {
-            curr->next = nxt->next;
-            nxt->next = pre->next;
-            pre->next = nxt;
-            nxt = curr->next;
+            //reverse
+            struct ListNode* start= beforestart->next;
+            struct ListNode* afterend = end->next;
+            reverse(start,end);
+            beforestart->next = end;
+            start->next = afterend;
+            beforestart = start;
+            end = afterend;
+            
         }
-        pre = curr;
-        cnt-=k;
+        else
+        {
+            end = end->next;
+        }
     }
+    
+    
+    
+    
+    
+    
     return dummy->next;
 }
