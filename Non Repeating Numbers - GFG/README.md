@@ -20,4 +20,4 @@ arr[] = {2, 1, 3, 2}
 1 3 occur exactly once.</span></pre>
 <p><span style="font-size: 18px;"><strong>Your Task:</strong><br>You do not need to read or print anything. Your task is to complete the function&nbsp;<strong>singleNumber()&nbsp;</strong>which takes the array as input parameter and returns a list of two numbers which occur exactly once in the array. The list must be in ascending order.</span></p>
 <p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong>&nbsp;O(N)<br><strong>Expected Space Complexity:&nbsp;</strong>O(1)</span></p>
-<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 &lt;= length of array &lt;= 10<sup>6&nbsp;</sup></span><br><span style="font-size: 18px;">1 &lt;= Elements in array &lt;= 5 * 10<sup>6</sup></span></p></div>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>2 &lt;= N &lt;= 10<sup>6&nbsp;</sup></span><br><span style="font-size: 18px;">1 &lt;= arr[i] &lt;= 5 * 10<sup>6</sup></span></p></div>
