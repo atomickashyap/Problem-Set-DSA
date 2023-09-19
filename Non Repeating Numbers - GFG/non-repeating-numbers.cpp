@@ -6,43 +6,45 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> singleNumber(vector<int> arr) 
+    
+    vector<int> singleNumber(vector<int> nums) 
     {
         // Code here.
+        int n = nums.size();
         int xorr = 0;
-        for(int i=0;i<arr.size();i++)
+        for(int i =0;i<n;i++)
         {
-            xorr^=arr[i];
+            xorr ^=nums[i];
         }
-        int setBit = 0;
-        for(int i = 0;i<32;i++)
+        // cout<<xorr<<" =";
+        int setbit =0;
+        for(int i = 0;i<=32;i++)
         {
-            int curr = 1<<i;
-            if((xorr&curr)!=0)
+            int num =  1<<i;
+            if((xorr & num))
             {
-                setBit = curr;
+                setbit = num;
                 break;
             }
         }
-        int first = 0;
-        int second = 0;
-    
-        for(int i = 0;i<arr.size();i++)
+        // cout<<setbit<<" = ";
+        int first = 0,second = 0;
+        for(int i = 0;i<n;i++)
         {
-            if((arr[i]&setBit)!=0)
+            if((nums[i] & setbit))
             {
-                
-                first^=arr[i];
+                first^=nums[i];
             }
-                
-            else
-                second^=arr[i];
+            else{
+                second^=nums[i];
+            }
         }
-    
-        if(first>second)
-            return {second,first};
-    
-        return {first,second};
+        
+        
+        if(first < second)
+            return{first,second};
+        
+        return {second,first};
     }
 };
 
