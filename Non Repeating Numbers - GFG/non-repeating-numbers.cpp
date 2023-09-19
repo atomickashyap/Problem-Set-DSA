@@ -16,9 +16,8 @@ public:
         {
             xorr ^=nums[i];
         }
-        // cout<<xorr<<" =";
         int setbit =0;
-        for(int i = 0;i<=32;i++)
+        for(int i = 0;i<32;i++)
         {
             int num =  1<<i;
             if((xorr & num))
@@ -27,11 +26,10 @@ public:
                 break;
             }
         }
-        // cout<<setbit<<" = ";
         int first = 0,second = 0;
         for(int i = 0;i<n;i++)
         {
-            if((nums[i] & setbit))
+            if((nums[i] & setbit)>0)
             {
                 first^=nums[i];
             }
@@ -39,8 +37,6 @@ public:
                 second^=nums[i];
             }
         }
-        
-        
         if(first < second)
             return{first,second};
         
