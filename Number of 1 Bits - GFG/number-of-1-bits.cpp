@@ -7,13 +7,14 @@ class Solution {
   public:
     int setBits(int N) {
         // Write Your Code here
-        int ans = 0, incre = 1;
-        while(N)
+        int cnt = 0;
+        while(N>0)
         {
-            ans+=(N&1);
-            N>>=1;
+            if((N&1))
+                cnt++;
+            N = N>>1;
         }
-         return ans;
+        return cnt;
     }
 };
 
