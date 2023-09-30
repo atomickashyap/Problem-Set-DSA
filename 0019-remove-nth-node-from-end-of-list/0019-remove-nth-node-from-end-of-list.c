@@ -6,31 +6,27 @@
  * };
  */
 struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
-    int len = 0;
-    struct ListNode* dummy = head;
-    while(dummy!=NULL)
-    {
-        dummy = dummy->next;
-        len++;
-    }
-    len = len-n;
-    if(len ==0)
-        return head->next;
-    dummy = (struct ListNode*) malloc(sizeof(struct ListNode));
+    struct ListNode* dummy = (struct ListNode* ) malloc(sizeof(struct ListNode));
     dummy->val = -1;
     dummy->next = head;
+    struct ListNode* slow = dummy;
+    struct ListNode* fast = dummy;
     
-    while(len--)
+    while( n-- && fast->next !=NULL )
     {
-        dummy= dummy->next;
+        fast = fast->next;
     }
-    printf("%d",dummy->val);
-    
-    if(dummy->next!=NULL)
-        dummy->next = dummy->next->next;
-    else{
-        dummy->next = NULL;
+    if(n>0)
+    {
+        printf("asd");
+        return head->next;
     }
+    while(fast->next!=NULL)
+    {
+        fast= fast->next;
+        slow = slow->next;
+    }
+    slow->next = slow->next->next;
     
-    return head;
+    return dummy->next;
 }
