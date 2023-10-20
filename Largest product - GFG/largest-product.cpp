@@ -50,7 +50,8 @@ long long findMaxProduct(int arr[], int n, int k)
             {
                 nzp /= arr[j - k];
                 nzp *= arr[j];
-                prod = nzp;
+                if(ct == 0)
+                    prod = nzp;
 
             }
             else {
