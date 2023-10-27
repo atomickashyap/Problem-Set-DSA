@@ -1,33 +1,40 @@
 class Solution {
+private:
+    
 public:
     string longestPalindrome(string s) {
-        
-        int ansR = -1, ansL = -1;
-        int mxLen = 0, strLen = s.length();
-        
-        for (int i = 0; i < strLen; i++){
-            int l = i, r = i;
-            while (l > -1 && r < strLen && s[l] == s[r]){
-                if (mxLen < (r-l+1)){
-                    ansR = r;
-                    ansL = l;
-                    mxLen = (r-l+1);
+        int n = s.length();
+        vector<vector<int>>dp(n,vector<int>(n,0));
+        string ans;
+        int maxlength = 0;
+        for(int diff = 0;diff<n;diff++)
+        {
+            for(int i = 0,j = i+diff;j<n;i++,j++)
+            {
+                if(i == j)
+                    dp[i][j]= 1;
+                else if(diff ==1)
+                {
+                    if(s[i] == s[j])
+                        dp[i][j] = 2;
+                    else
+                        dp[i][j] = 0;
                 }
-                l--; r++;
-            }
-            
-            l = i; r = i+1;
-            while(l > -1 && r < strLen && s[l] == s[r]){
-                if (mxLen < (r-l+1)){
-                    ansR = r;
-                    ansL = l;
-                    mxLen = (r-l+1);
+                else{
+                    if(s[i] == s[j] && dp[i+1][j-1])
+                        dp[i][j] = 2+dp[i+1][j-1];
                 }
-                l--; r++;
+                if(dp[i][j])
+                {
+                    if(j-i+1>maxlength)
+                    {
+                        maxlength = j-i+1;
+                        ans = s.substr(i,maxlength);
+                    }
+                }
             }
         }
         
-        return s.substr(ansL, (ansR - ansL + 1));
-        
+        return ans;
     }
 };
