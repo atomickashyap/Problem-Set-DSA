@@ -1,33 +1,24 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        
-        vector<string> rowAns(numRows);
         if(numRows == 1)
             return s;
-        
+        vector<string> vec(numRows);
         bool flag = false;
         int i = 0;
         for(auto ch:s)
         {
-            rowAns[i]+=ch;
-            if(i ==0 || i == (numRows-1))
-            {
+            vec[i]+=ch;
+            if(i == 0 || i == numRows-1)
                 flag = !flag;
-            }
-            if(flag == true)
+            if(flag==true)
                 i++;
-            else
+            if(flag==false)
                 i--;
         }
         string ans;
-        for(auto it: rowAns)
-        {
+        for(auto it:vec)
             ans+=it;
-        }
-        
-        
-        
         return ans;
     }
 };
