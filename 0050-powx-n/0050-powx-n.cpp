@@ -1,18 +1,22 @@
 class Solution {
 public:
-    double power(double x ,long n){
-        if(n==0) return 1;
-        
-        if(!(n&1)) return power(x*x,n/2); // even power
-        return x*power(x,n-1); // odd power 
-    }
-    
     double myPow(double x, int n) {
-        if(n==0) return 1;
-        
-        long l=abs((long)n);
-        double ans=power(x,l);
-        
-        return (n>0 ? ans:1/ans);
+        double ans = 1.0;
+        long long nn = abs(n);
+        while(nn)
+        {
+            if(nn%2)
+            {
+                ans = ans*x;
+                nn = nn-1;
+            }
+            else{
+                x = x*x;
+                nn = nn/2;
+            }
+        }
+        if(n<0) ans = (double)(1.0)/double(ans);
+            
+            return ans;
     }
 };
