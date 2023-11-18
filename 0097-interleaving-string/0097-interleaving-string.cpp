@@ -1,24 +1,34 @@
 class Solution {
-public:
-    bool isInterleave(string s1, string s2, string s3) {
-    
-    if(s3.length() != s1.length() + s2.length())
-        return false;
-    
-    bool table[s1.length()+1][s2.length()+1];
-    
-    for(int i=0; i<s1.length()+1; i++)
-        for(int j=0; j< s2.length()+1; j++){
-            if(i==0 && j==0)
-                table[i][j] = true;
-            else if(i == 0)
-                table[i][j] = ( table[i][j-1] && s2[j-1] == s3[i+j-1]);
-            else if(j == 0)
-                table[i][j] = ( table[i-1][j] && s1[i-1] == s3[i+j-1]);
-            else
-                table[i][j] = (table[i-1][j] && s1[i-1] == s3[i+j-1] ) || (table[i][j-1] && s2[j-1] == s3[i+j-1] );
+private:
+    bool solver(string &s1,string &s2,string &s3,int i,int j,int k,vector<vector<int>>&dp)
+    {
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        if(i==s1.length() && j==s2.length() && k==s3.length()){
+            return true;
         }
         
-    return table[s1.length()][s2.length()];
-}
+        bool x = false,y =false;
+        if(i!=s1.length())
+        {
+            if(s1[i] == s3[k]){
+                x = solver(s1,s2,s3,i+1,j,k+1,dp);
+            }
+        }
+        if(j!=s2.length())
+        {
+            if(s2[j] == s3[k])
+            {
+                y = solver(s1,s2,s3,i,j+1,k+1,dp);
+            }
+        }
+        return dp[i][j] = x||y;
+    }
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        int a = s1.length(),b = s2.length();
+        vector<vector<int>> dp(a+1,vector<int> (b+1,-1));
+        return solver(s1,s2,s3,0,0,0,dp);
+    }
 };
