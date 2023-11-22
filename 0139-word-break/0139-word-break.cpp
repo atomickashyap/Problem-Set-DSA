@@ -1,28 +1,39 @@
+
 class Solution {
-public:
-    map<char,vector<string>> m;
-    vector<int> dp;
-    bool f(string s, int i){
-        if(i==s.size()){
+private:
+    unordered_set<string>st;
+    std::vector<int> dp = std::vector<int>(301,-1);
+// int dp[301];
+private:
+    bool solver(string s, int idx)
+    {
+        if(idx == s.length())
+        {
             return true;
         }
-        if(dp[i]!=-1){
-            return dp[i];
-        }
-        bool ans=false;
-        for(auto it:m[s[i]]){
-            if(s.substr(i,it.size())==it){
-                ans|=f(s,i+it.size());
+        if(dp[idx]!=-1) return dp[idx];
+        if(st.find(s)!=st.end())
+            return true;
+        for(int l = 1; l<=s.length();l++)
+        {
+            string temp = s.substr(idx,l);
+            if(st.find(temp)!=st.end() && solver(s,idx+l))
+            {
+                return dp[idx] = true;
             }
         }
-        return dp[i]=ans;
-
+        return dp[idx] = false;
     }
+public:
     bool wordBreak(string s, vector<string>& wordDict) {
-        dp.resize(s.size(),-1);
-        for(auto it:wordDict){
-            m[it[0]].push_back(it);
+        
+        // memset(dp,-1,sizeof(dp));        
+        for(int i =0;i<wordDict.size();i++)
+        {
+            st.insert(wordDict[i]);
         }
-        return f(s,0);
+        
+        return solver(s,0);
+        
     }
 };
